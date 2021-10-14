@@ -1,1 +1,57 @@
-Hello World
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Событие onclick</title>
+  <script>
+    
+    function reinit(url) {
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.OneClickReinit != undefined) {
+            window.webkit.messageHandlers.OneClickReinit.postMessage(url)
+        }
+    }
+    if (MobileApp != undefined) {
+        MobileApp.OneClickReinit(url)
+    }
+    }
+    
+    function resp() {
+    var offerid = document.getElementById("offerid").value;
+    if(isEmpty(offerid)) offerid = "1";
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.OfferResponse != undefined) {
+            window.webkit.messageHandlers.OfferResponse.postMessage(offerid)
+        }
+    }
+    if (MobileApp != undefined) {
+        MobileApp.OfferResponse(offerid)
+    }
+    }
+    
+    function load_file() {
+    if (window.webkit != undefined) {
+        if (window.webkit.messageHandlers.LoadFile != undefined) {
+            window.webkit.messageHandlers.LoadFile.postMessage({ file: '0J/RgNC40LzQtdGAINGC0LXQutGB0YLQvtCy0L7Qs9C+INGE0LDQudC70LA= ', fileName: 'readme.txt' })
+        }
+    }
+    if (MobileApp != undefined) {
+        MobileApp.LoadFile('0J/RgNC40LzQtdGAINGC0LXQutGB0YLQvtCy0L7Qs9C+INGE0LDQudC70LA= ', 'readme.txt');
+    }
+    }
+    
+   function isEmpty(str){
+    return (str == null) || (str.length == 0);
+   }
+  </script>
+ </head> 
+ <body>
+  <form action="">
+   <p>Hello World</p>
+   <p><input type="text" id="offerid"></p>
+   <p><input type="button" value="confirm offer" onclick="resp()"></p>
+   <p><input type="button" value="reinit" onclick="reinit('https://www.google.ru/')"></p>
+   <p><input type="button" value="load file" onclick="load_file()"></p>
+  </form>
+ </body>
+</html>
